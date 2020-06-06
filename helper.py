@@ -7,6 +7,7 @@ from sklearn.metrics import r2_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from matplotlib.colors import ListedColormap
+from sklearn.neural_network import MLPClassifier
 #function from  https://www.kaggle.com/rpsuraj/outlier-detection-techniques-simplified/notebook
 def out_iqr(df , column):
     global lower,upper
@@ -163,13 +164,13 @@ def plot_datasets(datasets,classifiers,names):
         ax.set_yticks(())
         i += 1
 
+   
 
         for name, clf in zip(names, classifiers):
             ax = plt.subplot(len(datasets), len(classifiers) + 1, i)
             clf.fit(X_train, y_train)
             score_test = clf.score(X_test, y_test)
             score_train = clf.score(X_train, y_train)
-
             if hasattr(clf, "decision_function"):
                 Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
             else:
